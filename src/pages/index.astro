@@ -1,5 +1,7 @@
 ---
+import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
+import mascotImage from "../assets/milosaurio-mascot-full-transparent.webp";
 
 const WHATSAPP_NUMBER = "542491635872";
 const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}`;
@@ -16,6 +18,7 @@ const products = [
 		cardBg: "#F4FBF7",
 		accent: "#5FBFA0",
 		accentLight: "#7FD0B7",
+		priceColor: "#2C7C63",
 	},
 	{
 		name: "Castillo de Olas",
@@ -26,6 +29,7 @@ const products = [
 		cardBg: "#FFF6EC",
 		accent: "#E29456",
 		accentLight: "#F7C8A4",
+		priceColor: "#A85A26",
 	},
 	{
 		name: "Túneles",
@@ -36,6 +40,7 @@ const products = [
 		cardBg: "#F5F1FB",
 		accent: "#8A6FC2",
 		accentLight: "#CDBEE6",
+		priceColor: "#6E58AA",
 	},
 ];
 
@@ -112,9 +117,13 @@ const galleryPlaceholders = [
 				</a>
 			</div>
 			<div class="hero-image">
-				<img
-					src="/images/milosaurio-mascot-full-transparent.webp"
+				<Image
+					src={mascotImage}
 					alt="Mascota Milosaurio, niño disfrazado de dinosaurio saludando"
+					width={480}
+					height={480}
+					loading="eager"
+					fetchpriority="high"
 				/>
 			</div>
 		</div>
@@ -136,7 +145,7 @@ const galleryPlaceholders = [
 						</div>
 						<div class="card-header">
 							<h3>{product.name}</h3>
-							<span class="card-price" style={`color:${product.accent};`}>
+							<span class="card-price" style={`color:${product.priceColor};`}>
 								{product.price}
 							</span>
 						</div>
@@ -291,7 +300,7 @@ const galleryPlaceholders = [
 		align-items: center;
 		gap: 10px;
 		background: #5fbfa0;
-		color: #fff;
+		color: #3a332c;
 		font-weight: 800;
 		font-size: 17px;
 		padding: 16px 28px;
@@ -331,7 +340,7 @@ const galleryPlaceholders = [
 	}
 	.section-sub {
 		font-size: 16px;
-		color: #8a8177;
+		color: #726960;
 		margin: 0 0 36px;
 	}
 	.products-grid {
@@ -384,7 +393,7 @@ const galleryPlaceholders = [
 	}
 	.card-size {
 		font-size: 14px;
-		color: #8a8177;
+		color: #726960;
 		margin: 0 0 4px;
 	}
 	.card-description {
@@ -413,7 +422,7 @@ const galleryPlaceholders = [
 		width: 44px;
 		height: 44px;
 		border-radius: 50%;
-		color: #fff;
+		color: #3a332c;
 		font-weight: 700;
 		display: flex;
 		align-items: center;
