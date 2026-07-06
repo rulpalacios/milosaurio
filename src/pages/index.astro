@@ -3,7 +3,7 @@ import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
 import mascotImage from "../assets/milosaurio-mascot-full-transparent.webp";
 
-const WHATSAPP_NUMBER = "542491635872";
+const WHATSAPP_NUMBER = "522491635872";
 const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}`;
 const WHATSAPP_FLOAT_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=Hola%20Milosaurio%2C%20quiero%20rentar%20un%20inflable`;
 
@@ -11,10 +11,10 @@ const products = [
 	{
 		name: "Cubo Interactivo",
 		price: "$600",
-		size: "Tamaño chico",
+		size: "Tamaño chico · 4×3 m · altura 2 m",
 		description:
-			"Juegos de luces y sonido interactivos, ideal para espacios reducidos.",
-		placeholder: "foto: cubo",
+			"Ideal para espacios reducidos.",
+		image: "/images/cubo-interactivo.webp",
 		cardBg: "#F4FBF7",
 		accent: "#5FBFA0",
 		accentLight: "#7FD0B7",
@@ -23,9 +23,9 @@ const products = [
 	{
 		name: "Castillo de Olas",
 		price: "$800",
-		size: "Tamaño mediano",
+		size: "Tamaño mediano · 5×4 m · altura 2.7 m",
 		description: "Con resbaladilla — el clásico infaltable en toda fiesta.",
-		placeholder: "foto: castillo de olas",
+		image: "/images/castillo-olas.webp",
 		cardBg: "#FFF6EC",
 		accent: "#E29456",
 		accentLight: "#F7C8A4",
@@ -34,9 +34,9 @@ const products = [
 	{
 		name: "Túneles",
 		price: "$800",
-		size: "Tamaño mediano",
+		size: "Tamaño mediano · 5×3 m · altura 2.4 m",
 		description: "Circuito para gatear y trepar — aventura sin parar.",
-		placeholder: "foto: túneles",
+		image: "/images/tuneles.webp",
 		cardBg: "#F5F1FB",
 		accent: "#8A6FC2",
 		accentLight: "#CDBEE6",
@@ -113,7 +113,7 @@ const galleryPlaceholders = [
 					dos castillos medianos. Reserva por WhatsApp en minutos.
 				</p>
 				<a class="cta" href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
-					Reservar por WhatsApp →
+					Reservar por WhatsApp
 				</a>
 			</div>
 			<div class="hero-image">
@@ -137,11 +137,12 @@ const galleryPlaceholders = [
 			{
 				products.map((product) => (
 					<div class="card" style={`background:${product.cardBg};`}>
-						<div
-							class="card-photo-placeholder"
-							style={`background: repeating-linear-gradient(45deg, ${product.accent} 0 12px, ${product.accentLight} 12px 24px);`}
-						>
-							<span class="placeholder-label">{product.placeholder}</span>
+						<div class="card-photo-placeholder">
+							<img
+								src={product.image}
+								alt={product.name}
+								class="card-photo"
+							/>
 						</div>
 						<div class="card-header">
 							<h3>{product.name}</h3>
@@ -181,16 +182,20 @@ const galleryPlaceholders = [
 			<h2>Zona de cobertura</h2>
 			<p>
 				Damos servicio en la ciudad y alrededores. Escríbenos tu ubicación
-				por WhatsApp y te confirmamos disponibilidad y costo de traslado.
+				por WhatsApp y te confirmamos disponibilidad.
 			</p>
 		</div>
 		<div class="map-placeholder">
-			<span class="placeholder-label">mapa de cobertura</span>
+			<img
+				src="/images/milosaurio-zona-cobertura.webp"
+				alt="Mapa de zona de cobertura de Milosaurio"
+				class="map-image"
+			/>
 		</div>
 	</section>
 
 	<!-- GALLERY -->
-	<section class="gallery">
+	<!-- <section class="gallery">
 		<h2>Fiestas que hemos animado</h2>
 		<div class="gallery-grid">
 			{
@@ -204,12 +209,12 @@ const galleryPlaceholders = [
 				))
 			}
 		</div>
-	</section>
+	</section> -->
 
 	<!-- FOOTER -->
 	<footer class="footer">
 		<span class="footer-wordmark">milosaurio</span>
-		<span class="footer-contact">WhatsApp: 2491 635872</span>
+		<span class="footer-contact">WhatsApp: 249 163 5872</span>
 	</footer>
 </Layout>
 
@@ -254,6 +259,7 @@ const galleryPlaceholders = [
 	/* HERO */
 	.hero {
 		padding: 56px 72px 100px;
+		padding-bottom: 0px;
 		background: radial-gradient(circle at 85% 10%, #e9f6ef 0%, #fffbf3 55%);
 	}
 	.hero-dots {
@@ -364,6 +370,12 @@ const galleryPlaceholders = [
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		overflow: hidden;
+	}
+	.card-photo {
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
 	}
 	.placeholder-label {
 		font-family: monospace;
@@ -468,16 +480,17 @@ const galleryPlaceholders = [
 	.map-placeholder {
 		flex: 1 1 260px;
 		min-width: 260px;
-		height: 160px;
+		height: 310px;
 		border-radius: 18px;
-		background: repeating-linear-gradient(
-			45deg,
-			#b9a6db 0 12px,
-			#cdbee6 12px 24px
-		);
+		overflow: hidden;
 		display: flex;
 		align-items: center;
 		justify-content: center;
+	}
+	.map-image {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
 	}
 
 	/* GALLERY */
