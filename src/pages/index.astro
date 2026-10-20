@@ -6,6 +6,14 @@ import mascotImage from "../assets/milosaurio-mascot-full-transparent.webp";
 const WHATSAPP_NUMBER = "522491754458";
 const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}`;
 const WHATSAPP_FLOAT_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=Hola%20Milosaurio%2C%20quiero%20rentar%20un%20inflable`;
+const WHATSAPP_PROMO_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=Hola%20Milosaurio%2C%20quiero%20aprovechar%20la%20promoci%C3%B3n%20de%20Halloween`;
+
+// "default" | "halloween" — cambia el tema completo de la página.
+const THEME = "halloween";
+const isHalloween = THEME === "halloween";
+const coverageImage = isHalloween
+	? "/images/milosaurio-zona-cobertura-halloween.webp"
+	: "/images/milosaurio-zona-cobertura.webp";
 
 const products = [
 	{
@@ -15,10 +23,7 @@ const products = [
 		description:
 			"Ideal para espacios reducidos.",
 		image: "/images/cubo-interactivo.webp",
-		cardBg: "#F4FBF7",
-		accent: "#5FBFA0",
-		accentLight: "#7FD0B7",
-		priceColor: "#2C7C63",
+		tone: "a",
 	},
 	{
 		name: "Castillo de Olas",
@@ -26,10 +31,7 @@ const products = [
 		size: "Tamaño mediano · 5×4 m · altura 2.7 m",
 		description: "Con resbaladilla — el clásico infaltable en toda fiesta.",
 		image: "/images/castillo-olas.webp",
-		cardBg: "#FFF6EC",
-		accent: "#E29456",
-		accentLight: "#F7C8A4",
-		priceColor: "#A85A26",
+		tone: "b",
 	},
 	{
 		name: "Túneles",
@@ -37,35 +39,32 @@ const products = [
 		size: "Tamaño mediano · 5×3 m · altura 2.4 m",
 		description: "Circuito para gatear y trepar — aventura sin parar.",
 		image: "/images/tuneles.webp",
-		cardBg: "#F5F1FB",
-		accent: "#8A6FC2",
-		accentLight: "#CDBEE6",
-		priceColor: "#6E58AA",
+		tone: "c",
 	},
 ];
 
 const steps = [
 	{
 		number: 1,
-		color: "#5FBFA0",
+		tone: "a",
 		title: "Elige tu inflable",
 		text: "Escríbenos por WhatsApp con la fecha de tu evento.",
 	},
 	{
 		number: 2,
-		color: "#F4B183",
+		tone: "b",
 		title: "Confirma tu reserva",
 		text: "Apartamos el inflable con un anticipo.",
 	},
 	{
 		number: 3,
-		color: "#B9A6DB",
+		tone: "c",
 		title: "Entrega e instalación",
 		text: "Llegamos, instalamos y probamos todo antes de la fiesta.",
 	},
 	{
 		number: 4,
-		color: "#5FBFA0",
+		tone: "a",
 		title: "¡A divertirse!",
 		text: "Recogemos el equipo al finalizar el evento.",
 	},
@@ -79,7 +78,24 @@ const galleryPlaceholders = [
 ];
 ---
 
-<Layout>
+<Layout theme={THEME}>
+	{
+		isHalloween && (
+			<a
+				class="promo-bar"
+				href={WHATSAPP_PROMO_URL}
+				target="_blank"
+				rel="noopener noreferrer"
+			>
+				<span>
+					<span aria-hidden="true">🎃</span>
+					<strong>¡Aprovecha la promoción de Halloween!</strong>
+				</span>
+				<span class="promo-bar-cta">Reserva por WhatsApp →</span>
+				<span class="promo-bar-ghost" aria-hidden="true">👻</span>
+			</a>
+		)
+	}
 	<a
 		class="wa-float"
 		href={WHATSAPP_FLOAT_URL}
@@ -93,12 +109,29 @@ const galleryPlaceholders = [
 				fill="#fff"></path>
 			<path
 				d="M8.6 7.6c-.24-.53-.4-.5-.65-.5-.2 0-.44 0-.67.24-.24.24-.9.88-.9 2.14 0 1.26.92 2.48 1.05 2.65.13.17 1.8 2.9 4.45 3.94 2.2.86 2.65.68 3.13.64.48-.05 1.55-.63 1.77-1.24.22-.6.22-1.13.15-1.24-.06-.1-.24-.17-.5-.3-.26-.13-1.55-.77-1.79-.85-.24-.1-.42-.14-.6.13-.17.26-.68.85-.83 1.03-.15.17-.3.2-.57.07-.26-.13-1.1-.4-2.1-1.3-.78-.68-1.3-1.53-1.46-1.8-.15-.26-.02-.4.12-.53.12-.12.26-.3.4-.46.13-.16.17-.26.26-.44.09-.17.04-.33-.02-.46-.06-.13-.6-1.48-.84-2.02Z"
-				fill="#5FBFA0"></path>
+				fill="currentColor"></path>
 		</svg>
 	</a>
 
 	<!-- HERO -->
 	<section class="hero">
+		{
+			isHalloween && (
+				<div class="hero-deco" aria-hidden="true">
+					<svg width="0" height="0" focusable="false">
+						<symbol id="bat" viewBox="0 0 60 30">
+							<path d="M30 7 L33 3 L34 11 Q42 3 58 8 Q52 12 51 20 Q46 15 42 19 Q38 15 34 20 L30 27 L26 20 Q22 15 18 19 Q14 15 9 20 Q8 12 2 8 Q18 3 26 11 L27 3 Z" />
+						</symbol>
+					</svg>
+					<svg class="cobweb" viewBox="0 0 150 150" fill="none">
+						<path d="M0 0L150 0M0 0L138.6 57.4M0 0L106.1 106.1M0 0L57.4 138.6M0 0L0 150M35 0Q29.5 5.9 32.3 13.4Q25 16.7 24.7 24.7Q16.7 25 13.4 32.3Q5.9 29.5 0 35M65 0Q54.8 10.9 60.1 24.9Q46.5 31.1 46 46Q31.1 46.5 24.9 60.1Q10.9 54.8 0 65M95 0Q80.1 15.9 87.8 36.4Q67.9 45.4 67.2 67.2Q45.4 67.9 36.4 87.8Q15.9 80.1 0 95M125 0Q105.4 21 115.5 47.8Q89.4 59.7 88.4 88.4Q59.7 89.4 47.8 115.5Q21 105.4 0 125" />
+					</svg>
+					<svg class="bat bat-1" viewBox="0 0 60 30"><use href="#bat" /></svg>
+					<svg class="bat bat-2" viewBox="0 0 60 30"><use href="#bat" /></svg>
+					<svg class="bat bat-3" viewBox="0 0 60 30"><use href="#bat" /></svg>
+				</div>
+			)
+		}
 		<div class="wordmark">milosaurio</div>
 		<div class="hero-row">
 			<div class="hero-text">
@@ -112,9 +145,10 @@ const galleryPlaceholders = [
 				</a>
 			</div>
 			<div class="hero-image">
+				{isHalloween && <div class="moon" aria-hidden="true" />}
 				<Image
 					src={mascotImage}
-					alt="Mascota Milosaurio, niño disfrazado de dinosaurio saludando"
+					alt="Mascota Milosaurio, niño disfrazado de dinosaurio monstruo de Halloween, saludando con su cubeta de calabaza"
 					width={480}
 					height={480}
 					loading="eager"
@@ -124,6 +158,38 @@ const galleryPlaceholders = [
 		</div>
 	</section>
 
+	<!-- PROMO -->
+	{
+		isHalloween && (
+			<section class="promo">
+				<div class="promo-card">
+					<span class="promo-emoji promo-emoji-left" aria-hidden="true">
+						🎃
+					</span>
+					<div class="promo-copy">
+						<span class="promo-tag">Edición Halloween</span>
+						<h2>¡Aprovecha la promoción!</h2>
+						<p>
+							Reserva tu inflable para Halloween y haz que tu fiesta sea
+							monstruosamente divertida.
+						</p>
+						<a
+							class="cta"
+							href={WHATSAPP_PROMO_URL}
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							Quiero la promoción
+						</a>
+					</div>
+					<span class="promo-emoji promo-emoji-right" aria-hidden="true">
+						👻
+					</span>
+				</div>
+			</section>
+		)
+	}
+
 	<!-- PRODUCTS -->
 	<section class="products">
 		<h2>Nuestros inflables</h2>
@@ -131,7 +197,7 @@ const galleryPlaceholders = [
 		<div class="products-grid">
 			{
 				products.map((product) => (
-					<div class="card" style={`background:${product.cardBg};`}>
+					<div class="card" style={`background:var(--card-${product.tone}-bg);`}>
 						<div class="card-photo-placeholder">
 							<img
 								src={product.image}
@@ -141,7 +207,7 @@ const galleryPlaceholders = [
 						</div>
 						<div class="card-header">
 							<h3>{product.name}</h3>
-							<span class="card-price" style={`color:${product.priceColor};`}>
+							<span class="card-price" style={`color:var(--card-${product.tone}-price);`}>
 								{product.price}
 							</span>
 						</div>
@@ -160,7 +226,7 @@ const galleryPlaceholders = [
 			{
 				steps.map((step) => (
 					<div>
-						<div class="step-circle" style={`background:${step.color};`}>
+						<div class="step-circle" style={`background:var(--step-${step.tone});`}>
 							{step.number}
 						</div>
 						<h4>{step.title}</h4>
@@ -182,7 +248,7 @@ const galleryPlaceholders = [
 		</div>
 		<div class="map-placeholder">
 			<img
-				src="/images/milosaurio-zona-cobertura.webp"
+				src={coverageImage}
 				alt="Mapa de zona de cobertura de Milosaurio"
 				class="map-image"
 			/>
@@ -239,11 +305,12 @@ const galleryPlaceholders = [
 		width: 64px;
 		height: 64px;
 		border-radius: 50%;
-		background: #5fbfa0;
+		background: var(--brand);
+		color: var(--brand);
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		box-shadow: 0 10px 24px rgba(95, 191, 160, 0.5);
+		box-shadow: 0 10px 24px var(--brand-glow);
 		text-decoration: none;
 		transition: transform 0.15s ease;
 	}
@@ -255,7 +322,7 @@ const galleryPlaceholders = [
 	.hero {
 		padding: 56px 72px 100px;
 		padding-bottom: 0px;
-		background: radial-gradient(circle at 85% 10%, #e9f6ef 0%, #fffbf3 55%);
+		background: var(--hero-bg);
 	}
 	.hero-dots {
 		display: flex;
@@ -270,7 +337,7 @@ const galleryPlaceholders = [
 	.wordmark {
 		font-weight: 800;
 		font-size: 34px;
-		color: #3a332c;
+		color: var(--text);
 		margin-bottom: 18px;
 	}
 	.hero-row {
@@ -287,21 +354,21 @@ const galleryPlaceholders = [
 		font-weight: 700;
 		font-size: 56px;
 		line-height: 1.08;
-		color: #3a332c;
+		color: var(--text);
 		margin: 0 0 22px;
 	}
 	.hero-text p {
 		font-size: 19px;
 		line-height: 1.6;
-		color: #6b6259;
+		color: var(--text-muted);
 		margin: 0 0 32px;
 	}
 	.cta {
 		display: inline-flex;
 		align-items: center;
 		gap: 10px;
-		background: #5fbfa0;
-		color: #3a332c;
+		background: var(--brand);
+		color: var(--on-brand);
 		font-weight: 800;
 		font-size: 17px;
 		padding: 16px 28px;
@@ -331,17 +398,17 @@ const galleryPlaceholders = [
 
 	/* PRODUCTS */
 	.products {
-		background: #fffbf3;
+		background: var(--bg);
 	}
 	.products h2 {
 		font-weight: 700;
 		font-size: 32px;
-		color: #3a332c;
+		color: var(--text);
 		margin: 0 0 8px;
 	}
 	.section-sub {
 		font-size: 16px;
-		color: #726960;
+		color: var(--text-subtle);
 		margin: 0 0 36px;
 	}
 	.products-grid {
@@ -352,11 +419,12 @@ const galleryPlaceholders = [
 	.card {
 		border-radius: 20px;
 		padding: 24px;
-		box-shadow: 0 8px 24px rgba(60, 40, 20, 0.06);
+		box-shadow: var(--card-shadow);
 		transition: transform 0.15s ease, box-shadow 0.15s ease;
 	}
 	.card:hover {
 		transform: translateY(-4px);
+		box-shadow: var(--card-shadow-hover);
 	}
 	.card-photo-placeholder {
 		height: 160px;
@@ -392,7 +460,7 @@ const galleryPlaceholders = [
 	.card-header h3 {
 		font-size: 21px;
 		margin: 0;
-		color: #3a332c;
+		color: var(--text);
 	}
 	.card-price {
 		font-weight: 700;
@@ -400,24 +468,24 @@ const galleryPlaceholders = [
 	}
 	.card-size {
 		font-size: 14px;
-		color: #726960;
+		color: var(--text-subtle);
 		margin: 0 0 4px;
 	}
 	.card-description {
 		font-size: 14px;
-		color: #6b6259;
+		color: var(--text-muted);
 		line-height: 1.5;
 		margin: 0;
 	}
 
 	/* HOW IT WORKS */
 	.how-it-works {
-		background: #f4fbf7;
+		background: var(--bg-alt);
 	}
 	.how-it-works h2 {
 		font-weight: 700;
 		font-size: 32px;
-		color: #3a332c;
+		color: var(--text);
 		margin: 0 0 36px;
 	}
 	.steps-grid {
@@ -429,7 +497,7 @@ const galleryPlaceholders = [
 		width: 44px;
 		height: 44px;
 		border-radius: 50%;
-		color: #3a332c;
+		color: var(--on-brand);
 		font-weight: 700;
 		display: flex;
 		align-items: center;
@@ -439,18 +507,18 @@ const galleryPlaceholders = [
 	.steps-grid h4 {
 		font-size: 17px;
 		margin: 0 0 6px;
-		color: #3a332c;
+		color: var(--text);
 	}
 	.steps-grid p {
 		font-size: 14px;
-		color: #6b6259;
+		color: var(--text-muted);
 		line-height: 1.5;
 		margin: 0;
 	}
 
 	/* COVERAGE */
 	.coverage {
-		background: #fffbf3;
+		background: var(--bg);
 		padding: 56px 72px;
 		display: flex;
 		align-items: center;
@@ -463,12 +531,12 @@ const galleryPlaceholders = [
 	.coverage-text h2 {
 		font-weight: 700;
 		font-size: 28px;
-		color: #3a332c;
+		color: var(--text);
 		margin: 0 0 12px;
 	}
 	.coverage-text p {
 		font-size: 16px;
-		color: #6b6259;
+		color: var(--text-muted);
 		line-height: 1.6;
 		margin: 0;
 	}
@@ -496,7 +564,7 @@ const galleryPlaceholders = [
 	.gallery h2 {
 		font-weight: 700;
 		font-size: 28px;
-		color: #3a332c;
+		color: var(--text);
 		margin: 0 0 28px;
 	}
 	.gallery-grid {
@@ -515,7 +583,7 @@ const galleryPlaceholders = [
 	/* FOOTER */
 	.footer {
 		padding: 32px 72px;
-		background: #3a332c;
+		background: var(--bg-footer);
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
@@ -530,7 +598,215 @@ const galleryPlaceholders = [
 	}
 	.footer-contact {
 		font-size: 14px;
-		color: #c9c1b6;
+		color: var(--footer-text);
+	}
+
+	/* HALLOWEEN */
+	.promo-bar {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-wrap: wrap;
+		gap: 4px 12px;
+		padding: 10px 20px;
+		background: linear-gradient(90deg, #ff7a18, #ff9a3c 50%, #ff7a18);
+		color: #1a1024;
+		font-size: 15px;
+		text-align: center;
+		text-decoration: none;
+	}
+	.promo-bar strong {
+		margin-left: 6px;
+		font-family: "Baloo 2", sans-serif;
+		font-size: 17px;
+		font-weight: 800;
+	}
+	.promo-bar-cta {
+		font-weight: 800;
+		text-decoration: underline;
+		text-underline-offset: 3px;
+	}
+	.promo-bar:focus-visible {
+		outline: 3px solid #1a1024;
+		outline-offset: -3px;
+	}
+
+	:global([data-theme="halloween"]) .hero {
+		position: relative;
+	}
+	:global([data-theme="halloween"]) .wordmark,
+	:global([data-theme="halloween"]) .hero-row {
+		position: relative;
+		z-index: 1;
+	}
+	:global([data-theme="halloween"]) .hero-image img {
+		position: relative;
+		z-index: 1;
+		filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.45));
+	}
+	:global([data-theme="halloween"]) .hero-text h1,
+	:global([data-theme="halloween"]) .wordmark,
+	:global([data-theme="halloween"]) .footer-wordmark,
+	:global([data-theme="halloween"]) .promo h2 {
+		font-family: "Creepster", "Baloo 2", sans-serif;
+		font-weight: 400;
+		letter-spacing: 0.03em;
+	}
+	:global([data-theme="halloween"]) .hero-text h1 {
+		text-shadow: 0 0 28px rgba(255, 122, 24, 0.45);
+	}
+	:global([data-theme="halloween"]) .cta {
+		box-shadow: 0 0 24px var(--brand-glow);
+	}
+	:global([data-theme="halloween"]) .map-placeholder {
+		box-shadow: var(--card-shadow);
+	}
+	:global([data-theme="halloween"]) .footer {
+		border-top: 3px solid var(--brand);
+	}
+
+	.hero-deco {
+		position: absolute;
+		inset: 0;
+		z-index: 0;
+		overflow: hidden;
+		pointer-events: none;
+	}
+	.cobweb {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 150px;
+		height: 150px;
+		stroke: rgba(246, 236, 220, 0.35);
+		stroke-width: 1;
+	}
+	.bat {
+		position: absolute;
+		fill: #4a2b6b;
+		animation: bat-float 6s ease-in-out infinite;
+	}
+	.bat-1 {
+		width: 64px;
+		top: 14%;
+		left: 46%;
+	}
+	.bat-2 {
+		width: 40px;
+		top: 34%;
+		left: 60%;
+		animation-duration: 7s;
+		animation-delay: -2s;
+	}
+	.bat-3 {
+		width: 52px;
+		top: 8%;
+		right: 6%;
+		animation-delay: -4s;
+	}
+	@keyframes bat-float {
+		0%,
+		100% {
+			transform: translate(0, 0) rotate(-5deg);
+		}
+		50% {
+			transform: translate(18px, -14px) rotate(5deg);
+		}
+	}
+
+	.moon {
+		position: absolute;
+		top: 24px;
+		left: 50%;
+		width: 300px;
+		aspect-ratio: 1;
+		transform: translateX(-50%);
+		border-radius: 50%;
+		background: radial-gradient(circle at 35% 35%, #ffe3ad 0%, #ffb457 55%, #ff8a2a 100%);
+		box-shadow: 0 0 90px 20px rgba(255, 138, 42, 0.45);
+	}
+
+	.promo {
+		background: var(--bg);
+		padding: 40px 72px 8px;
+	}
+	.promo-card {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 32px;
+		padding: 36px 40px;
+		border: 2px dashed #ff9a3c;
+		border-radius: 24px;
+		background: linear-gradient(135deg, #2b1640 0%, #44190f 100%);
+		box-shadow:
+			0 0 40px rgba(255, 122, 24, 0.25),
+			inset 0 0 40px rgba(255, 122, 24, 0.12);
+		text-align: center;
+	}
+	.promo-copy {
+		max-width: 560px;
+	}
+	.promo-tag {
+		display: inline-block;
+		margin-bottom: 10px;
+		padding: 4px 14px;
+		border-radius: 999px;
+		background: #ff7a18;
+		color: #1a1024;
+		font-size: 12px;
+		font-weight: 800;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+	}
+	.promo h2 {
+		font-size: 48px;
+		line-height: 1.1;
+		color: #ff9a3c;
+		margin: 0 0 12px;
+		text-shadow: 0 0 24px rgba(255, 122, 24, 0.5);
+	}
+	.promo p {
+		font-size: 18px;
+		line-height: 1.5;
+		color: var(--text-muted);
+		margin: 0 0 24px;
+	}
+	.promo .cta {
+		animation: promo-pulse 2.4s ease-in-out infinite;
+	}
+	.promo-emoji {
+		font-size: 72px;
+		line-height: 1;
+		animation: emoji-bob 3.2s ease-in-out infinite;
+	}
+	.promo-emoji-right {
+		animation-delay: -1.6s;
+	}
+	@keyframes promo-pulse {
+		0%,
+		100% {
+			box-shadow: 0 0 16px var(--brand-glow);
+		}
+		50% {
+			box-shadow: 0 0 34px 6px var(--brand-glow);
+		}
+	}
+	@keyframes emoji-bob {
+		0%,
+		100% {
+			transform: translateY(0) rotate(-6deg);
+		}
+		50% {
+			transform: translateY(-10px) rotate(6deg);
+		}
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.bat,
+		.promo .cta,
+		.promo-emoji {
+			animation: none;
+		}
 	}
 
 	/* RESPONSIVE */
@@ -538,8 +814,12 @@ const galleryPlaceholders = [
 		section,
 		.footer,
 		.coverage,
-		.gallery {
+		.gallery,
+		.promo {
 			padding: 40px 32px;
+		}
+		.promo h2 {
+			font-size: 40px;
 		}
 		.hero {
 			padding: 40px 32px 64px;
@@ -557,8 +837,19 @@ const galleryPlaceholders = [
 		section,
 		.footer,
 		.coverage,
-		.gallery {
+		.gallery,
+		.promo {
 			padding: 28px 20px;
+		}
+		.promo-card {
+			padding: 28px 20px;
+		}
+		.promo h2 {
+			font-size: 34px;
+		}
+		.promo-emoji,
+		.promo-bar-ghost {
+			display: none;
 		}
 		.hero {
 			padding: 28px 20px 48px;

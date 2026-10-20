@@ -2,16 +2,21 @@
 interface Props {
 	title?: string;
 	description?: string;
+	theme?: "default" | "halloween";
 }
 
 const {
 	title = "Milosaurio — Renta de inflables para eventos infantiles",
 	description = "Rentamos inflables para eventos infantiles: un cubo interactivo y dos castillos medianos. Reserva por WhatsApp en minutos.",
+	theme = "default",
 } = Astro.props;
+
+const isHalloween = theme === "halloween";
+const fontsHref = `https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800${isHalloween ? "&family=Creepster" : ""}&display=swap`;
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang="es" data-theme={theme}>
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -19,15 +24,12 @@ const {
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
 		<meta name="description" content={description} />
-		<meta name="theme-color" content="#e9f6ef" />
+		<meta name="theme-color" content={isHalloween ? "#1a1024" : "#e9f6ef"} />
 		<title>{title}</title>
 
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap"
-			rel="stylesheet"
-		/>
+		<link href={fontsHref} rel="stylesheet" />
 	</head>
 	<body>
 		<slot />
@@ -35,6 +37,58 @@ const {
 </html>
 
 <style is:global>
+	:root {
+		--bg: #fffbf3;
+		--bg-alt: #f4fbf7;
+		--bg-footer: #3a332c;
+		--hero-bg: radial-gradient(circle at 85% 10%, #e9f6ef 0%, #fffbf3 55%);
+		--text: #3a332c;
+		--text-muted: #6b6259;
+		--text-subtle: #726960;
+		--footer-text: #c9c1b6;
+		--brand: #5fbfa0;
+		--brand-glow: rgba(95, 191, 160, 0.5);
+		--on-brand: #3a332c;
+		--card-shadow: 0 8px 24px rgba(60, 40, 20, 0.06);
+		--card-shadow-hover: 0 8px 24px rgba(60, 40, 20, 0.06);
+		--card-a-bg: #f4fbf7;
+		--card-a-price: #2c7c63;
+		--card-b-bg: #fff6ec;
+		--card-b-price: #a85a26;
+		--card-c-bg: #f5f1fb;
+		--card-c-price: #6e58aa;
+		--step-a: #5fbfa0;
+		--step-b: #f4b183;
+		--step-c: #b9a6db;
+	}
+
+	:root[data-theme="halloween"] {
+		--bg: #1a1024;
+		--bg-alt: #241433;
+		--bg-footer: #0e0716;
+		--hero-bg:
+			radial-gradient(circle at 85% 35%, rgba(255, 122, 24, 0.22) 0%, transparent 45%),
+			radial-gradient(circle at 85% 10%, #3a1a52 0%, #1a1024 62%);
+		--text: #f6ecdc;
+		--text-muted: #d3c4e0;
+		--text-subtle: #b9a8c9;
+		--footer-text: #b9a8c9;
+		--brand: #ff7a18;
+		--brand-glow: rgba(255, 122, 24, 0.55);
+		--on-brand: #1a1024;
+		--card-shadow: 0 0 0 1px rgba(255, 138, 42, 0.3), 0 10px 30px rgba(0, 0, 0, 0.45);
+		--card-shadow-hover: 0 0 0 1px rgba(255, 138, 42, 0.7), 0 10px 36px rgba(255, 122, 24, 0.3);
+		--card-a-bg: #1e2b25;
+		--card-a-price: #9be15d;
+		--card-b-bg: #2d1d1a;
+		--card-b-price: #ffa24d;
+		--card-c-bg: #261b3d;
+		--card-c-price: #c4b5fd;
+		--step-a: #9be15d;
+		--step-b: #ff8a2a;
+		--step-c: #a78bfa;
+	}
+
 	html,
 	body {
 		margin: 0;
@@ -49,7 +103,7 @@ const {
 
 	body {
 		font-family: "Nunito", sans-serif;
-		background: #fffbf3;
+		background: var(--bg);
 		min-height: 100vh;
 		display: flex;
 		flex-direction: column;
