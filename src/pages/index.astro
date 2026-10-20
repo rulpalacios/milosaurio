@@ -3,14 +3,15 @@ import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
 import mascotImage from "../assets/milosaurio-mascot-full-transparent.webp";
 
-const WHATSAPP_NUMBER = "522491754458";
-const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}`;
-const WHATSAPP_FLOAT_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=Hola%20Milosaurio%2C%20quiero%20rentar%20un%20inflable`;
-const WHATSAPP_PROMO_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=Hola%20Milosaurio%2C%20quiero%20aprovechar%20la%20promoci%C3%B3n%20de%20Halloween`;
-
 // "default" | "halloween" — cambia el tema completo de la página.
 const THEME = "halloween";
 const isHalloween = THEME === "halloween";
+
+const WHATSAPP_NUMBER = "522491754458";
+const WHATSAPP_MESSAGE = isHalloween
+	? "Hola Milosaurio, quiero aprovechar la promoción de Halloween"
+	: "Hola Milosaurio, quiero rentar un inflable";
+const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
 const coverageImage = isHalloween
 	? "/images/milosaurio-zona-cobertura-halloween.webp"
 	: "/images/milosaurio-zona-cobertura.webp";
@@ -83,7 +84,7 @@ const galleryPlaceholders = [
 		isHalloween && (
 			<a
 				class="promo-bar"
-				href={WHATSAPP_PROMO_URL}
+				href={WHATSAPP_URL}
 				target="_blank"
 				rel="noopener noreferrer"
 			>
@@ -98,7 +99,7 @@ const galleryPlaceholders = [
 	}
 	<a
 		class="wa-float"
-		href={WHATSAPP_FLOAT_URL}
+		href={WHATSAPP_URL}
 		target="_blank"
 		rel="noopener noreferrer"
 		aria-label="Contactar por WhatsApp"
@@ -175,7 +176,7 @@ const galleryPlaceholders = [
 						</p>
 						<a
 							class="cta"
-							href={WHATSAPP_PROMO_URL}
+							href={WHATSAPP_URL}
 							target="_blank"
 							rel="noopener noreferrer"
 						>
